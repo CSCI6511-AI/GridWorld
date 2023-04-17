@@ -26,9 +26,8 @@ def get_runs(count):
         "teamId": team_id,
         "count": count,
     }
-    response = requests.get(game_url, params=params, headers=headers)
-    if response.status_code != 200 or \
-            json.loads(response.text)["message"] is not None:
+    response = requests.get(score_url, params=params, headers=headers)
+    if response.status_code != 200:
         raise Exception(json.loads(response.text)["message"])
     return json.loads(response.text)["runs"]
 
@@ -44,8 +43,7 @@ def get_location():
         "teamId": team_id,
     }
     response = requests.get(game_url, params=params, headers=headers)
-    if response.status_code != 200 or \
-            json.loads(response.text)["message"] is not None:
+    if response.status_code != 200:
         raise Exception(json.loads(response.text)["message"])
     return json.loads(response.text)
 
@@ -64,8 +62,7 @@ def enter_a_world(world_id):
         "teamId": team_id,
     }
     response = requests.post(game_url, data=data, headers=headers)
-    if response.status_code != 200 or \
-            json.loads(response.text)["message"] is not None:
+    if response.status_code != 200:
         raise Exception(json.loads(response.text)["message"])
     return json.loads(response.text)
 
@@ -86,8 +83,7 @@ def make_a_move(move, word_id):
         "wordId": word_id,
     }
     response = requests.post(game_url, data=data, headers=headers)
-    if response.status_code != 200 or \
-            json.loads(response.text)["message"] is not None:
+    if response.status_code != 200:
         raise Exception(json.loads(response.text)["message"])
     return json.loads(response.text)
 
@@ -102,25 +98,42 @@ def get_score():
         "teamId": team_id,
     }
     response = requests.get(score_url, params=params, headers=headers)
-    if response.status_code != 200 or \
-            json.loads(response.text)["message"] is not None:
+    if response.status_code != 200:
         raise Exception(json.loads(response.text)["message"])
     return json.loads(response.text)["score"]
 
 
-if __name__ == '__main__':
+def reset_team():
+    params = {
+        "teamId": team_id,
+        "otp": "5712768807",
+    }
+    response = requests.get(
+        "https://www.notexponential.com/aip2pgaming/api/rl/reset.php",
+        params=params,
+        headers=headers
+    )
+    if response.status_code != 200:
+        raise Exception(json.loads(response.text))
+    return json.loads(response.text)
+
+
+# if __name__ == '__main__':
+    # reset team
+    # res = reset_team()
+    # print(res)
     # test enter a world
-    # res = enter_a_world(0)
+    # res = enter_a_world("0")
     # print(res)
     # test make a move
-    res = make_a_move(Moves.North.value, 0)
-    print(res)
+    # res = make_a_move("E", "0")
+    # print(res)
     # test get runs
-    res = get_runs(10)
-    print(res)
+    # res = get_runs(2)
+    # print(res)
     # test get location
-    res = get_location()
-    print(res)
+    # res = get_location()
+    # print(res)
     # test get_score
-    res = get_score()
-    print(res)
+    # res = get_score()
+    # print(res)
