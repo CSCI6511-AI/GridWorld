@@ -6,22 +6,15 @@ import matplotlib.pyplot as plt
 class GridWorld:
     ## Initialise starting data
     def __init__(self):
-        # Set information about the gridworld
+        # Set information about the gridworld （改成了40x40大小的世界）
         self.height = 40
         self.width = 40
         self.grid = np.zeros((self.height, self.width)) - 1
 
-        # Set random start location for the agent
+        # Set random start location for the agent（暂时不知道初始位置，就先随机从边上开始了）
         self.current_location = (39, np.random.randint(0, 40))
 
-        # Set locations for the bomb and the gold
-        self.bomb_location = (1, 3)
-        self.gold_location = (0, 3)
-        self.terminal_states = [self.bomb_location, self.gold_location]
-
-        # Set grid rewards for special cells
-        self.grid[self.bomb_location[0], self.bomb_location[1]] = -10
-        self.grid[self.gold_location[0], self.gold_location[1]] = 10
+        #在原文基础上删除了预设的gold和bomb
 
         # Set available actions
         self.actions = ['UP', 'DOWN', 'LEFT', 'RIGHT']
