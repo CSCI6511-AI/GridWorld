@@ -10,25 +10,25 @@ def play(environment, agent, trials=500, max_steps_per_episode=1000, learn=False
         step = 0
         game_over = False
         while step < max_steps_per_episode and game_over != True:  # Run until max steps or until game is finished
-            old_state = environment.current_location  # 获取当前状态
-            action = agent.choose_action(environment.actions)  # 选择行动
-            reward = environment.make_step(action)  # 执行行动并获取奖励
-            new_state = environment.current_location  # 获取新状态
+            old_state = environment.current_location  #   取  前状态
+            action = agent.choose_action(environment.actions)  # 选   卸
+            reward = environment.make_step(action)  # 执   卸     取
+            new_state = environment.current_location  #   取  状态
 
-            if learn == True:  # 如果指定了学习，则更新 Q 值
+            if learn == True:  #    指    学习        Q 值
                 agent.learn(old_state, reward, new_state, action)
 
-            cumulative_reward += reward  # 累计奖励
+            cumulative_reward += reward  #  奂平
             step += 1
 
-            if environment.check_state() == 'TERMINAL':  # 如果游戏已结束，则结束当前游戏并开始下一个试验
+            if environment.check_state() == 'TERMINAL':  #      戏 呀            前  戏    始  一
                 environment.__init__()
                 game_over = True
 
 
-            elif environment.check_state() == 'EXIT':  # 如果遇到了出口，则结束当前游戏并开始下一个试验
+            elif environment.check_state() == 'EXIT':  #         顺  冢        前  戏    始  一
 
-                # 修改部分：在到达出口后，计算所有位置的得分并选择最佳路径行走
+                #  薷牟  郑  诘     诤螅       位 玫牡梅植 选     路
                 scores = agent.get_scores(environment)
                 best_action = agent.get_best_action(environment, scores)
                 while best_action != None:
@@ -47,7 +47,7 @@ def play(environment, agent, trials=500, max_steps_per_episode=1000, learn=False
                     best_action = agent.get_best_action(environment, scores)
                 break
 
-        reward_per_episode.append(cumulative_reward)  # 将当前试验的累计奖励记录到性能日志中
+        reward_per_episode.append(cumulative_reward)  #     前      奂平     录        志
 
-    return reward_per_episode  # 返回所有试验的累计奖励列表
+    return reward_per_episode  #               奂平    斜
 

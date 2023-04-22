@@ -1,28 +1,27 @@
 import numpy as np
-import operator
-import matplotlib.pyplot as plt
-# %matplotlib inline  #后面好像没用到，就先注释掉
+from http_requests import http_requests
+from common.moves import Moves
+
 
 class GridWorld:
-    ## Initialise starting data
+    # Initialise starting data
     def __init__(self):
-        # Set information about the gridworld （改成了40x40大小的世界）
+        # Set information about the gridworld
         self.height = 40
         self.width = 40
         self.grid = np.zeros((self.height, self.width)) - 1
 
-        # Set random start location for the agent（暂时不知道初始位置，就先随机从边上开始了）
-        self.current_location = (39, np.random.randint(0, 40))
-
-        #在原文基础上删除了预设的gold和bomb
+        # Set random start location for the agent (need change to 0, 0)
+        # self.current_location = (39, np.random.randint(0, 40))
+        self.current_location = (0, 0)
 
         # Set available actions
-        self.actions = ['UP', 'DOWN', 'LEFT', 'RIGHT']
+        self.actions = [move.value for move in Moves]
 
-    ## Put methods here:
-    def get_available_actions(self):
-        """Returns possible actions"""
-        return self.actions
+    # Put methods here:
+    # def get_available_actions(self):
+    #     """Returns possible actions"""
+    #     return self.actions
 
     def agent_on_map(self):
         """Prints out current location of the agent on the grid (used for debugging)"""
@@ -82,3 +81,7 @@ class GridWorld:
         """Check if the agent is in a terminal state (gold or bomb), if so return 'TERMINAL'"""
         if self.current_location in self.terminal_states:
             return 'TERMINAL'
+
+if __name__ == '__main__':
+    g = GridWorld()
+    print(g.actions)
