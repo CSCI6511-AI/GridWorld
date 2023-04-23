@@ -1,5 +1,5 @@
-from grid_world import GridWorld
-from q_agent import Q_Agent
+from src.grid_world import GridWorld
+from src.q_agent import QAgent
 
 def play(environment, agent, trials=500, max_steps_per_episode=1000, learn=False):
     """The play function runs iterations and updates Q-values if desired."""
@@ -10,25 +10,24 @@ def play(environment, agent, trials=500, max_steps_per_episode=1000, learn=False
         step = 0
         game_over = False
         while step < max_steps_per_episode and game_over != True:  # Run until max steps or until game is finished
-            old_state = environment.current_location  #   ȡ  ǰ״̬
-            action = agent.choose_action(environment.actions)  # ѡ   ж
-            reward = environment.make_step(action)  # ִ   ж     ȡ
-            new_state = environment.current_location  #   ȡ  ״̬
+            old_state = environment.current_location
+            action = agent.choose_action(environment.actions)
+            reward = environment.make_step(action)
+            new_state = environment.current_location
 
-            if learn == True:  #    ָ    ѧϰ        Q ֵ
+            if learn == True:
                 agent.learn(old_state, reward, new_state, action)
 
-            cumulative_reward += reward  #  ۼƽ
+            cumulative_reward += reward
             step += 1
 
-            if environment.check_state() == 'TERMINAL':  #      Ϸ ѽ            ǰ  Ϸ    ʼ  һ
+            if environment.check_state() == 'TERMINAL':
                 environment.__init__()
                 game_over = True
 
 
-            elif environment.check_state() == 'EXIT':  #         ˳  ڣ        ǰ  Ϸ    ʼ  һ
+            elif environment.check_state() == 'EXIT':
 
-                #  ޸Ĳ  ֣  ڵ     ں󣬼       λ õĵ÷ֲ ѡ     ·
                 scores = agent.get_scores(environment)
                 best_action = agent.get_best_action(environment, scores)
                 while best_action != None:
@@ -47,7 +46,7 @@ def play(environment, agent, trials=500, max_steps_per_episode=1000, learn=False
                     best_action = agent.get_best_action(environment, scores)
                 break
 
-        reward_per_episode.append(cumulative_reward)  #     ǰ      ۼƽ     ¼        ־
+        reward_per_episode.append(cumulative_reward)
 
-    return reward_per_episode  #               ۼƽ    б
+    return reward_per_episode
 
