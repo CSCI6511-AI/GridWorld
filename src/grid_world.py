@@ -36,7 +36,7 @@ class GridWorld:
         new_location = (int(move_result.get("newState").get("x")),
                         int(move_result.get("newState").get("y")))
         self.current_location = new_location
-        return move_result.get("reward")
+        return move_result.get("reward"), move_result.get("scoreIncrement")
 
     def check_action(self, old_state, new_state):
         vector = (new_state[0] - old_state[0], new_state[1] - new_state[1])

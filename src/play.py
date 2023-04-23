@@ -1,22 +1,36 @@
+from http_requests import http_requests
+
+
 def play(environment, agent):
-    """The play function runs iterations and updates Q-values if desired."""
-    cumulative_reward = 0  # Initialise values of each game
+    # Initialise values of each game
+    cumulative_reward = 0
     step = 0
     game_over = False
-    while not game_over:  # Run until max steps or until game is finished
+    score = 0
+    while not game_over:
         old_state = environment.current_location
+        # choose action
         action = agent.choose_action(environment.get_available_actions)
-        reward = environment.make_step(action)
+        # make move and get reward
+        reward, score_increment = environment.make_step(action)
+        # if reward is None means already exit current world --> game terminate
         if reward == 0:
             game_over = True
+            score = http_requests.get_score()
         new_state = environment.current_location
         real_action = environment.check_action(old_state, new_state)
         agent.learn(old_state, reward, new_state, real_action)
 
         cumulative_reward += reward
         step += 1
+
         print(f"old state: {old_state}")
         print(f"new state: {new_state}")
         print(f"current reward: {reward}")
+        print(f"score_increment: {score_increment}")
         print(f"action: {action}")
         print(f"real action: {real_action}")
+
+    print(f"cumulative_reward: {cumulative_reward}")
+    print(f"step count: {step}")
+    print(f"score: {score}")
