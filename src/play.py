@@ -34,3 +34,4 @@ def play(environment, agent):
     print(f"cumulative_reward: {cumulative_reward}")
     print(f"step count: {step}")
     print(f"score: {score}")
+

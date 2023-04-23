@@ -1,5 +1,5 @@
 import numpy as np
-from common.moves import Moves
+from src.common.moves import Moves
 
 
 class QAgent:
