@@ -21,6 +21,14 @@ class GridWorld:
     # Put methods here:
     def get_available_actions(self):
         """Returns possible actions"""
+        if self.current_location[0] == 0:
+            self.actions.remove("W")
+        elif self.current_location[1] == 0:
+            self.actions.remove("S")
+        elif self.current_location[0] == self.height - 1:
+            self.actions.remove("E")
+        elif self.current_location[0] == self.width - 1:
+            self.actions.remove("N")
         return self.actions
 
     def agent_on_map(self):
