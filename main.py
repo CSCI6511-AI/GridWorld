@@ -1,15 +1,20 @@
+from src.grid_world import GridWorld
+from src.q_agent import QAgent
+from src.play import play
 from http_requests import http_requests
-from src.common.moves import Moves
+
+
+def main():
+    http_requests.enter_a_world()
+    # Create environment
+    environment = GridWorld()
+
+    # Create agent
+    agent = QAgent(environment)
+
+    # Train agent by playing games
+    play(environment, agent)
+
 
 if __name__ == '__main__':
-    # enter a world
-    # http_requests.enter_a_world("0")
-    old_location = http_requests.get_location().get("state")
-    move = Moves.East.value
-    res = http_requests.make_a_move(move)
-    print(res)
-    cur_reward = res.get("reward")
-    new_location = http_requests.get_location().get("state")
-    print(f"move: {move}\nold location: {old_location}\nnew location: {new_location}\nreward: {cur_reward} points")
-    score = http_requests.get_score()
-    print(f"current score is {score}")
+    main()

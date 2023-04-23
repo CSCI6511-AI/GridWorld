@@ -1,5 +1,5 @@
 from http_requests import http_requests
-
+import time
 
 def play(environment, agent):
     # Initialise values of each game
@@ -19,6 +19,8 @@ def play(environment, agent):
             score = http_requests.get_score()
         new_state = environment.current_location
         real_action = environment.check_action(old_state, new_state)
+        if real_action is None:
+            continue
         agent.learn(old_state, reward, new_state, real_action)
 
         cumulative_reward += reward
@@ -30,6 +32,8 @@ def play(environment, agent):
         print(f"score_increment: {score_increment}")
         print(f"action: {action}")
         print(f"real action: {real_action}")
+
+        time.sleep(5)
 
     print(f"cumulative_reward: {cumulative_reward}")
     print(f"step count: {step}")

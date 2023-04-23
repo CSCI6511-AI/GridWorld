@@ -1,5 +1,5 @@
 import numpy as np
-from common.moves import Moves
+from src.common.moves import Moves
 
 
 class QAgent:
@@ -12,8 +12,8 @@ class QAgent:
         self.q_table = dict()
         for x in range(environment.height):
             for y in range(environment.width):
-                self.q_table[(x, y)] = {Moves.North.name: 0, Moves.South.name: 0, Moves.West.name: 0,
-                                        Moves.East.name: 0}
+                self.q_table[(x, y)] = {Moves.North.value: 0, Moves.South.value: 0, Moves.West.value: 0,
+                                        Moves.East.value: 0}
 
     def choose_action(self, available_actions):
         # epsilon greedy
@@ -26,12 +26,13 @@ class QAgent:
         # max reward
         q_values_of_state = self.q_table[self.environment.current_location]
         max_value = max(q_values_of_state.values())
-        action = np.random.choice([k for k, v in q_values_of_state.item() if v == max_value])
+        action = np.random.choice([k for k, v in q_values_of_state.items() if v == max_value])
         return action
 
     def learn(self, old_state, reward, new_state, action):
         q_values_of_state = self.q_table[new_state]
         max_q_value_in_new_state = max(q_values_of_state.values())
+        # print(self.q_table)
         current_q_value = self.q_table[old_state][action]
         self.q_table[old_state][action] = (1 - self.alpha) * current_q_value \
                                           + self.alpha * (reward + self.gamma * max_q_value_in_new_state)

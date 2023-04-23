@@ -1,6 +1,6 @@
 import numpy as np
 from http_requests import http_requests
-from common.moves import Moves
+from src.common.moves import Moves
 
 
 class GridWorld:
@@ -33,6 +33,8 @@ class GridWorld:
         # make a move and get the result
         move_result = http_requests.make_a_move(action)
         # get the new state
+        if move_result.get("code") == "FAIL":
+            return None, None
         new_location = (int(move_result.get("newState").get("x")),
                         int(move_result.get("newState").get("y")))
         self.current_location = new_location
