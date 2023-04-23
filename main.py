@@ -2,12 +2,11 @@ from http_requests import http_requests
 from src.common.moves import Moves
 
 if __name__ == '__main__':
-    world_id = "0"
     # enter a world
     # http_requests.enter_a_world("0")
     old_location = http_requests.get_location().get("state")
     move = Moves.East.value
-    res = http_requests.make_a_move(move, world_id)
+    res = http_requests.make_a_move(move)
     print(res)
     cur_reward = res.get("reward")
     new_location = http_requests.get_location().get("state")
