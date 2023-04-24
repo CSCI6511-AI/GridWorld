@@ -44,3 +44,8 @@ if __name__ == '__main__':
         for y in range(4):
             a[(x, y)] = {Moves.North.name: 0, Moves.South.name: 0, Moves.West.name: 0, Moves.East.name: 0}
     print(a)
+    q_values_of_state = a[(1, 2)]
+    max_value = max(q_values_of_state.values())
+    # action = np.random.choice([k for k, v in q_values_of_state.item() if v == max_value])
+    for k, v in q_values_of_state.items():
+        print(k, v)

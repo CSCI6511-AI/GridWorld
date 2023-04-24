@@ -1,6 +1,7 @@
 from http_requests import http_requests
 import time
 
+
 def play(environment, agent):
     # Initialise values of each game
     cumulative_reward = 0
@@ -14,7 +15,7 @@ def play(environment, agent):
         # make move and get reward
         reward, score_increment = environment.make_step(action)
         # if reward is None means already exit current world --> game terminate
-        if reward == 0:
+        if reward is None:
             game_over = True
             score = http_requests.get_score()
         new_state = environment.current_location
@@ -32,8 +33,8 @@ def play(environment, agent):
         print(f"score_increment: {score_increment}")
         print(f"action: {action}")
         print(f"real action: {real_action}")
-
-        time.sleep(5)
+        print(f"step: {step}")
+        # time.sleep(5)
 
     print(f"cumulative_reward: {cumulative_reward}")
     print(f"step count: {step}")

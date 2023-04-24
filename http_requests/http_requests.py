@@ -22,7 +22,7 @@ def get_runs(count):
     get {count} runs
     :param count: number of runs you want get
     :return: a list of run history, each element is a dictionary which contains
-        runId, teamId, gworldId, createTs, score, moves
+        runId, teamId, worldId, createTs, score, moves
     """
     params = {
         "type": "runs",
@@ -83,7 +83,7 @@ def make_a_move(move):
         "type": "move",
         "teamId": team_id,
         "move": move,
-        "wordId": world_id,
+        "worldId": world_id,
     }
     response = requests.post(game_url, data=data, headers=headers)
     if response.status_code != 200:

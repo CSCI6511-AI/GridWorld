@@ -5,16 +5,21 @@ from http_requests import http_requests
 
 
 def main():
-    http_requests.enter_a_world()
     # Create environment
     environment = GridWorld()
-
     # Create agent
     agent = QAgent(environment)
-
     # Train agent by playing games
     play(environment, agent)
 
 
 if __name__ == '__main__':
+    res = http_requests.reset_team()
+    print(res)
+    res = http_requests.enter_a_world()
+    print(res)
+    # res = http_requests.get_location()
+    # print(res)
+    # res = http_requests.make_a_move("E")
+    # print(res)
     main()

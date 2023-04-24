@@ -40,9 +40,10 @@ class GridWorld:
     def make_step(self, action):
         # make a move and get the result
         move_result = http_requests.make_a_move(action)
-        # get the new state
-        if move_result.get("code") == "FAIL":
+        if move_result.get("code") == "FAIL" or move_result.get("newState") is None:
+            print(move_result)
             return None, None
+        # get the new state
         new_location = (int(move_result.get("newState").get("x")),
                         int(move_result.get("newState").get("y")))
         self.current_location = new_location
