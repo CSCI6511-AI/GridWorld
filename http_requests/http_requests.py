@@ -14,7 +14,7 @@ headers = {"User-Agent": "PostmanRuntime/7.31.3",
            "x-api-key": api_key}
 
 # define the world id
-world_id = "1"
+world_id = None
 
 
 def get_runs(count):

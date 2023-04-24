@@ -5,8 +5,9 @@ from src.common.moves import Moves
 
 class GridWorld:
     # Initialise starting data
-    def __init__(self):
+    def __init__(self, world_id):
         # Set information about the gridworld
+        self.world_id = world_id
         self.height = 40
         self.width = 40
         self.grid = np.zeros((self.height, self.width)) - 1
@@ -21,15 +22,16 @@ class GridWorld:
     # Put methods here:
     def get_available_actions(self):
         """Returns possible actions"""
+        available_actions = list(self.actions)
         if self.current_location[0] == 0:
-            self.actions.remove("W")
-        elif self.current_location[1] == 0:
-            self.actions.remove("S")
-        elif self.current_location[0] == self.height - 1:
-            self.actions.remove("E")
-        elif self.current_location[0] == self.width - 1:
-            self.actions.remove("N")
-        return self.actions
+            available_actions.remove(Moves.West.value)
+        if self.current_location[1] == 0:
+            available_actions.remove(Moves.South.value)
+        if self.current_location[1] == self.height - 1:
+            available_actions.remove(Moves.East.value)
+        if self.current_location[0] == self.width - 1:
+            available_actions.remove(Moves.North.value)
+        return available_actions
 
     def agent_on_map(self):
         """Prints out current location of the agent on the grid (used for debugging)"""
@@ -62,7 +64,3 @@ class GridWorld:
             real_action = Moves.South.value
         return real_action
 
-
-# if __name__ == '__main__':
-    # g = GridWorld()
-    # print(g.actions)
