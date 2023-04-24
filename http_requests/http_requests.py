@@ -13,13 +13,16 @@ headers = {"User-Agent": "PostmanRuntime/7.31.3",
            "userId": "1135",
            "x-api-key": api_key}
 
+# define the world id
+world_id = None
+
 
 def get_runs(count):
     """
     get {count} runs
     :param count: number of runs you want get
     :return: a list of run history, each element is a dictionary which contains
-        runId, teamId, gworldId, createTs, score, moves
+        runId, teamId, worldId, createTs, score, moves
     """
     params = {
         "type": "runs",
@@ -48,7 +51,7 @@ def get_location():
     return json.loads(response.text)
 
 
-def enter_a_world(world_id):
+def enter_a_world():
     """
     enter a world you want to go
     :param world_id: the world id you want to enter
@@ -67,7 +70,7 @@ def enter_a_world(world_id):
     return json.loads(response.text)
 
 
-def make_a_move(move, word_id):
+def make_a_move(move):
     """
     make a move in current world
     :param move: move direction, refer to moves.py
@@ -80,7 +83,7 @@ def make_a_move(move, word_id):
         "type": "move",
         "teamId": team_id,
         "move": move,
-        "wordId": word_id,
+        "worldId": world_id,
     }
     response = requests.post(game_url, data=data, headers=headers)
     if response.status_code != 200:
@@ -129,7 +132,7 @@ def reset_team():
     # res = make_a_move("E", "0")
     # print(res)
     # test get runs
-    # res = get_runs(2)
+    # res = get_runs(3)
     # print(res)
     # test get location
     # res = get_location()

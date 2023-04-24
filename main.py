@@ -1,16 +1,27 @@
+from src.grid_world import GridWorld
+from src.q_agent import QAgent
+from src.play import play
 from http_requests import http_requests
-from src.common.moves import Moves
+
+
+def main(world_id, file_name=None):
+    # Create environment
+    environment = GridWorld(world_id)
+    # Create agent
+    agent = QAgent(environment, file_name)
+    # Train agent by playing games
+    play(environment, agent, 100)
+
 
 if __name__ == '__main__':
-    world_id = "0"
-    # enter a world
-    # http_requests.enter_a_world("0")
-    old_location = http_requests.get_location().get("state")
-    move = Moves.East.value
-    res = http_requests.make_a_move(move, world_id)
+    res = http_requests.reset_team()
     print(res)
-    cur_reward = res.get("reward")
-    new_location = http_requests.get_location().get("state")
-    print(f"move: {move}\nold location: {old_location}\nnew location: {new_location}\nreward: {cur_reward} points")
-    score = http_requests.get_score()
-    print(f"current score is {score}")
+    http_requests.world_id = "1"
+    res = http_requests.enter_a_world()
+    print(res)
+    # res = http_requests.get_location()
+    # print(res)
+    # res = http_requests.make_a_move("E")
+    # print(res)
+    file = "1-1682362721.txt"
+    main(http_requests.world_id, file)
