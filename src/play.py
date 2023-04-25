@@ -20,9 +20,11 @@ def play(environment, agent, max_step):
             game_over = True
             score = http_requests.get_score()
         new_state = environment.current_location
+        # check the real action
         real_action = environment.check_action(old_state, new_state)
         if real_action is None:
             continue
+        # learn from real action
         agent.learn(old_state, reward, new_state, real_action)
 
         cumulative_reward += reward

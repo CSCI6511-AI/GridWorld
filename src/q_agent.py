@@ -6,7 +6,7 @@ import os
 
 
 class QAgent:
-    def __init__(self, environment, file_name=None, epsilon=0.8, alpha=0.1, gamma=1):
+    def __init__(self, environment, file_name=None, epsilon=0.8, alpha=0.5, gamma=1):
         self.environment = environment
         self.epsilon = epsilon
         self.alpha = alpha
@@ -22,13 +22,17 @@ class QAgent:
             self.init_q_table(file_name)
 
     def choose_action(self, available_actions):
+        action = None
         # epsilon greedy
         if np.random.uniform(0, 1) < self.epsilon:
             action = available_actions[np.random.randint(0, len(available_actions))]
         else:
             q_values_of_state = self.q_table[self.environment.current_location]
-            max_value = max(q_values_of_state.values())
-            action = np.random.choice([k for k, v in q_values_of_state.items() if v == max_value])
+            max_value = q_values_of_state.get(available_actions[0])
+            for a in available_actions:
+                if q_values_of_state.get(a) > max_value:
+                    max_value = q_values_of_state.get(a)
+                    action = a
         # max reward
         # q_values_of_state = self.q_table[self.environment.current_location]
         # max_value = max(q_values_of_state.values())

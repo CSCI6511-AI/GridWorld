@@ -10,12 +10,11 @@ def main(world_id, file_name=None):
     # Create agent
     agent = QAgent(environment, file_name)
     # Train agent by playing games
-    play(environment, agent, 100)
+    play(environment, agent, 300)
 
 
 if __name__ == '__main__':
-    res = http_requests.reset_team()
-    print(res)
+    http_requests.reset_team()
     http_requests.world_id = "1"
     res = http_requests.enter_a_world()
     print(res)
@@ -23,5 +22,5 @@ if __name__ == '__main__':
     # print(res)
     # res = http_requests.make_a_move("E")
     # print(res)
-    file = "1-1682362721.txt"
+    file = "1-1682365998.txt"
     main(http_requests.world_id, file)
