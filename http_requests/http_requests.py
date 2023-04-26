@@ -1,5 +1,5 @@
 import json
-from src.common.moves import Moves
+from src.common.action import Actions
 import requests
 
 team_id = "1365"
@@ -73,7 +73,7 @@ def enter_a_world():
 def make_a_move(move):
     """
     make a move in current world
-    :param move: move direction, refer to moves.py
+    :param move: move direction, refer to action.py
     :param word_id: world id
     :return: a dictionary which contains
         worldId, runId, reward, scoreIncrement, newState

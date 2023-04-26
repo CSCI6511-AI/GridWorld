@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Moves(Enum):
+class Actions(Enum):
     North = "N"
     South = "S"
     East = "E"

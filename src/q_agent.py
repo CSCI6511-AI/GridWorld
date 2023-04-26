@@ -1,12 +1,13 @@
 import numpy as np
-from src.common.moves import Moves
+from src.common.action import Actions
 import time
 from src.grid_world import GridWorld
 import os
 
 
 class QAgent:
-    def __init__(self, environment, file_name=None, epsilon=0.8, alpha=0.5, gamma=1):
+    def __init__(self, environment, file_name=None, epsilon=0.5, alpha=0.1, gamma=0.9):
+        # grid world
         self.environment = environment
         self.epsilon = epsilon
         self.alpha = alpha
@@ -16,8 +17,10 @@ class QAgent:
         if file_name is None:
             for x in range(environment.height):
                 for y in range(environment.width):
-                    self.q_table[(x, y)] = {Moves.North.value: 0, Moves.South.value: 0, Moves.West.value: 0,
-                                            Moves.East.value: 0}
+                    self.q_table[(x, y)] = {Actions.North.value: 0,
+                                            Actions.South.value: 0,
+                                            Actions.West.value: 0,
+                                            Actions.East.value: 0}
         else:
             self.init_q_table(file_name)
 
@@ -73,10 +76,10 @@ class QAgent:
                     state = state.rstrip("\n")
                     [n, s, w, e] = state.split(" ")
                     self.q_table[(x, y)] = {
-                        Moves.North.value: float(n),
-                        Moves.South.value: float(s),
-                        Moves.West.value: float(w),
-                        Moves.East.value: float(e)
+                        Actions.North.value: float(n),
+                        Actions.South.value: float(s),
+                        Actions.West.value: float(w),
+                        Actions.East.value: float(e)
                     }
             fir.close()
         else:
@@ -84,11 +87,6 @@ class QAgent:
 
 
 if __name__ == '__main__':
-    # a = dict()
-    # for x in range(4):
-    #     for y in range(4):
-    #         a[(x, y)] = {Moves.North.name: 0, Moves.South.name: 0, Moves.West.name: 0, Moves.East.name: 0}
-    # print(a)
     g = GridWorld(1)
     q = QAgent(g)
     q.init_q_table(name)
