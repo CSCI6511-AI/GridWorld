@@ -6,7 +6,7 @@ import os
 
 
 class QAgent:
-    def __init__(self, environment, file_name=None, epsilon=0.5, alpha=0.1, gamma=0.9):
+    def __init__(self, environment, file_name=None, epsilon=0.9, alpha=0.1, gamma=0.9):
         # grid world
         self.environment = environment
         self.epsilon = epsilon
@@ -86,9 +86,9 @@ class QAgent:
             raise Exception("Fail Initialization! The file is empty!")
 
 
-if __name__ == '__main__':
-    g = GridWorld(1)
-    q = QAgent(g)
-    q.init_q_table(name)
-    # q.download_q_table("0.1")
-    q.show_q_table()
+# if __name__ == '__main__':
+#     g = GridWorld(1)
+#     q = QAgent(g)
+#     q.init_q_table(1)
+#     # q.download_q_table("0.1")
+#     q.show_q_table()
